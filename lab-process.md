@@ -34,7 +34,7 @@ How to do a lab
 ### Submit PR for Lab
 
 1. Go to your fork of repo and click "new pull request"
-1. Set base to `alchemy-bootcamp-one-spring-2018/<your-github-user>`
+1. Set base to `alchemy-bootcamp-two-spring-2018/<your-github-user>`
 1. Click new pull request, and give a title (name of lab fine)
 1. Click "create pull request"
 
