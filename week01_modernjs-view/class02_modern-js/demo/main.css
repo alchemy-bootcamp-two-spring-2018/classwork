@@ -5,12 +5,16 @@ body {
 #list {
     float: left;
     width: 200px;
-    height: 80%;
+    overflow-y: auto;
+    height: 500px;
     border: 1px solid blue;
 }
 
 #viewer {
     height: 80%;
+    height: 500px;
+    overflow: auto;
+    padding: 5px;
     border: 1px solid green;
 }
 

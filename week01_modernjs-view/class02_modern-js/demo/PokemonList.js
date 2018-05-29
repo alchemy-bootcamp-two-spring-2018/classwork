@@ -2,30 +2,33 @@
 import Template from './Template.js';
 import pokemon from './pokedex.js';
 
-const template = new Template((data) => `
-    <h2>${data.length} Pokemon</h2>
+const template = new Template((list) => `
+    <h2>${list.length} Pokemon</h2>
     <ul class="list"></ul>
 `);
 
-const pokemonTemplate = new Template(data => `
+const pokemonTemplate = new Template(pokemon => `
     <li class="pokemon">
-        ${data.cname} (${data.ename})
+        ${pokemon.cname} (${pokemon.ename})
     </li>
 `);
 
 export default class PokemonList {
-    constructor() {
+    constructor(onSelect) {
         this.pokemonList = pokemon;
+        this.onSelect = onSelect;
     }
 
     render() {
         const dom = template.render(this.pokemonList);
         const ul = dom.querySelector('ul');
         this.pokemonList.map(pokemon => {
-            const li = pokemonTemplate.render(pokemon);
-            // TODO: add event listener
-            // li.addEventListener('click')
-            ul.appendChild(li);
+            const dom = pokemonTemplate.render(pokemon);
+            const li = dom.querySelector('li');
+            li.addEventListener('click', () => {
+                this.onSelect(pokemon);
+            });
+            ul.appendChild(dom);
         });
 
         return dom;
