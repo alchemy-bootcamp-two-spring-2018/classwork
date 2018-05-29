@@ -2,16 +2,17 @@
 import Template from './Template.js';
 import pokemon from './pokedex.js';
 
-const template = new Template((list) => `
-    <h2>${list.length} Pokemon</h2>
+const template = new Template(({ length }) => `
+    <h2>${length} Pokemon</h2>
     <ul class="list"></ul>
 `);
 
-const pokemonTemplate = new Template(pokemon => `
+const pokemonTemplate = new Template(({ jname, ename }) => `
     <li class="pokemon">
-        ${pokemon.cname} (${pokemon.ename})
+        ${jname} (${ename})
     </li>
 `);
+
 
 export default class PokemonList {
     constructor(onSelect) {
@@ -22,6 +23,7 @@ export default class PokemonList {
     render() {
         const dom = template.render(this.pokemonList);
         const ul = dom.querySelector('ul');
+        
         this.pokemonList.map(pokemon => {
             const dom = pokemonTemplate.render(pokemon);
             const li = dom.querySelector('li');

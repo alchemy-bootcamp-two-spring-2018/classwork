@@ -1,15 +1,15 @@
 import Template from './Template.js';
 
-const template = new Template(pokemon => {
+const template = new Template(({ jname, ename, base }) => {
     return `
-    <h4>${pokemon.ename} ${pokemon.jname}</h4>
+    <h4>${ename} ${jname}</h4>
     <ul>
-        <li>Attack: ${pokemon.base.Attack}</li>
-        <li>Defense: ${pokemon.base.Defense}</li> 
-        <li>HP: ${pokemon.base.HP}</li> 
-        <li>Sp.Atk: ${pokemon.base['Sp.Atk']}</li> 
-        <li>Sp.Def: ${pokemon.base['Sp.Def']}</li> 
-        <li>Speed: ${pokemon.base.Speed}</li>
+        <li>Attack: ${base.Attack}</li>
+        <li>Defense: ${base.Defense}</li> 
+        <li>HP: ${base.HP}</li> 
+        <li>Sp.Atk: ${base['Sp.Atk']}</li> 
+        <li>Sp.Def: ${base['Sp.Def']}</li> 
+        <li>Speed: ${base.Speed}</li>
     </ul>
     `;
 });
