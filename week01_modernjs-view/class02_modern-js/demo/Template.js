@@ -1,6 +1,3 @@
-
-const tempTemplateElement = document.createElement('template');
-
 export default class Template {
     constructor(templateFunction) {
         // store the template function for use in the render method
@@ -8,11 +5,14 @@ export default class Template {
     }
 
     render(data) {
+        // create a template element to convert string to html
+        const templateElement = document.createElement('template');
+
         // call the template function with the supplied data,
         // and set the result as the innerHTML of the template element
-        tempTemplateElement.innerHTML = this.templateFunction(data);
+        templateElement.innerHTML = this.templateFunction(data);
 
         // return the document fragment that contains the actual DOM elements
-        return tempTemplateElement.content;
+        return templateElement.content;
     }
 }

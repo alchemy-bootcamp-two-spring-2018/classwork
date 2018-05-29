@@ -1,3 +1,28 @@
 body {
     font-family: sans-serif;
 }
+
+#list {
+    float: left;
+    width: 200px;
+    height: 80%;
+    border: 1px solid blue;
+}
+
+#viewer {
+    height: 80%;
+    border: 1px solid green;
+}
+
+.list {
+    padding: 5px;
+}
+
+.pokemon {
+    list-style: none;
+    cursor: pointer;
+}
+
+.pokemon:hover {
+    background: #eee;
+}

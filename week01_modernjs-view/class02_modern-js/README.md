@@ -154,7 +154,7 @@ Functional means to map an array to a new array.
 ```js
 const mapped = [];
 for(let i = 0; i < superheros.length; i++) {
-    const { name } = superheros[i];
+    const { name, power } = superheros[i];
     mapped.push({ name, power });
 }
 return mapped;
@@ -164,7 +164,7 @@ return mapped;
 const mapped = superheros.map(superhero => {
     const { name, power } = superheros[i];
     return { name, power };
-}
+});
 ```
 
 Apply to templates...

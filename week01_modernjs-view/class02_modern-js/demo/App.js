@@ -1,11 +1,25 @@
 import Template from './Template.js';
+import PokemonList from './PokemonList.js';
 
-const template = new Template(function(data) {
-    return `<div>Hello ${data.name}</div>`;
+const template = new Template(() => {
+    return `
+        <main>
+            <h1>Pokemon Viewer</h1>
+            <section id="list"></section>
+            <section id="viewer"></section>
+        </main>
+    `;
 });
 
 export default class App {
     render() {
-        return template.render({ name: 'world' });
+        const dom = template.render();
+        // TODO: pass select to List
+        const pokemonList = new PokemonList();
+        const section = dom.getElementById('list');
+        const listDom = pokemonList.render();
+        section.appendChild(listDom);
+
+        return dom;
     }
 }
