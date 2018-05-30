@@ -26,9 +26,16 @@ What can we learn?
 ### ESLint
 
 * `vue add @vue/eslint`
-* Choose...Standard
+* Choose "errors only"
+* `npm i eslint-plugin-html -D`
+* Setup `.eslintrc`...
 
 ## Intro to Vue.js
+
+### Where does data come from?
+
+* returned from `data` config method
+* `props` from parent
 
 ### How is DOM updated?
 
@@ -40,7 +47,7 @@ Mustaches:
 {{ data }}
 ```
 
-**NOTE:** data is interpreted as plain text 
+**NOTE:** Data is interpreted as plain text. Use  
 
 #### Element Properties
 
