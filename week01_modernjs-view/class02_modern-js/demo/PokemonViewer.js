@@ -2,15 +2,15 @@ import Template from './Template.js';
 
 const template = new Template(({ jname, ename, base }) => {
     return `
-    <h4>${ename} ${jname}</h4>
-    <ul>
-        <li>Attack: ${base.Attack}</li>
-        <li>Defense: ${base.Defense}</li> 
-        <li>HP: ${base.HP}</li> 
-        <li>Sp.Atk: ${base['Sp.Atk']}</li> 
-        <li>Sp.Def: ${base['Sp.Def']}</li> 
-        <li>Speed: ${base.Speed}</li>
-    </ul>
+        <h4>${ename} ${jname}</h4>
+        <ul>
+            <li>Attack: ${base.Attack}</li>
+            <li>Defense: ${base.Defense}</li> 
+            <li>HP: ${base.HP}</li> 
+            <li>Sp.Atk: ${base['Sp.Atk']}</li> 
+            <li>Sp.Def: ${base['Sp.Def']}</li> 
+            <li>Speed: ${base.Speed}</li>
+        </ul>
     `;
 });
 

@@ -6,6 +6,11 @@
 * Vue CLI
 * Intro to Vue.js
 
+## Review
+
+* Codewars Kata
+* Lab
+
 ## Vue CLI
 
 ### Up and Running
@@ -25,10 +30,10 @@ What can we learn?
 
 ### ESLint
 
-* `vue add @vue/eslint`
+* `> vue add @vue/eslint`
 * Choose "errors only"
-* `npm i eslint-plugin-html -D`
-* Setup `.eslintrc`...
+* Copy in `.eslintrc` file
+* Add `/* eslint-env node */` to top of `babel.config.js`
 
 ## Intro to Vue.js
 
@@ -44,10 +49,10 @@ What can we learn?
 Mustaches:
 
 ```html
-{{ data }}
+{{data}}
 ```
 
-**NOTE:** Data is interpreted as plain text. Use  
+**NOTE:** Data is interpreted as plain text. Use `v-html=` for raw html.
 
 #### Element Properties
 
