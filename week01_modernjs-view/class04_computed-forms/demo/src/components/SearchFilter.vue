@@ -1,5 +1,5 @@
 <template>
-  <section @change="emitChange">
+  <section @input="emitChange">
     <h2>I am Filter</h2>
     <input v-model="type">
     <input v-model="name">
