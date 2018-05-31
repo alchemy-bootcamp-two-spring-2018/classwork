@@ -10,7 +10,8 @@
       <input type="number" v-model.number="newNumber">
       <button @click="addIncrement">Add Number to Increments</button>
     </section>
-    <SearchFilter @filter="applyFilter"/>
+    <SearchFilter :filter="filter"/>
+    <pre>{{ JSON.stringify(filter, true, 2) }}</pre>
   </main>
 </template>
 
@@ -23,7 +24,11 @@ export default {
     return { 
       count: 0,
       numbers: [1, 10, 100, 500, 1000, 10000],
-      newNumber: ''
+      newNumber: '',
+      filter: {
+        type: '',
+        name: ''
+      }
     };
   },
   computed: {
@@ -55,9 +60,6 @@ export default {
     },
     addIncrement() {
       this.numbers.push(this.newNumber);
-    },
-    applyFilter(filter) {
-      console.log('filter is', filter);
     }
   }
 };
