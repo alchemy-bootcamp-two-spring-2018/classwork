@@ -1,16 +1,21 @@
 <template>
   <main>
     <h1>Counter Demo</h1>
+    <section>
+      <input v-model="name">
+      computed: {{ shoutedName }}
+      method: {{ getShouted() }}
+    </section>
     <section class="controls">
       <CounterButtons :numbers="decrements" @change="changeCount"/>
       <span class="count">{{ count }}</span>
-      <CounterButtons :numbers="increments" prefix="+" @change="changeCount"/>
+      <CounterButtons :numbers="increments" @change="changeCount"/>
     </section>
     <section>
       <input type="number" v-model.number="newNumber">
       <button @click="addIncrement">Add Number to Increments</button>
     </section>
-    <SearchFilter :filter="filter"/>
+    <SearchFilter :filter="filter" :name="getShouted"/>
     <pre>{{ JSON.stringify(filter, true, 2) }}</pre>
   </main>
 </template>
@@ -28,10 +33,14 @@ export default {
       filter: {
         type: '',
         name: ''
-      }
+      },
+      name: 'bilbo'
     };
   },
   computed: {
+    shoutedName() {
+      return this.name.toUpperCase();
+    },
     increments() {
       return this.numbers
         .slice()
@@ -60,6 +69,9 @@ export default {
     },
     addIncrement() {
       this.numbers.push(this.newNumber);
+    },
+    getShouted() {
+      return this.name.toUpperCase();
     }
   }
 };

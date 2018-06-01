@@ -6,8 +6,12 @@
 
 export default {
   props: {
-    label: String,
     amount: Number
+  },
+  computed: {
+    label(){
+      return this.amount > 0 ? '+' + this.amount : this.amount;
+    }
   }
 };
 

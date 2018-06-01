@@ -4,13 +4,14 @@
     <input v-model="filter.type">
     <input v-model="filter.name">
     filter done
+    <h3>{{ name }}</h3>
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['filter'],
+  props: ['filter', 'name'],
 };
 
 </script>
