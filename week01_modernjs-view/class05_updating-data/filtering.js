@@ -22,8 +22,8 @@ const animals = [{
 }]
 
 const filter = {
-  type: 'all',
-  age: 12,
+  type: '',
+  age: -1,
   neutered: undefined
 };
 
@@ -39,8 +39,8 @@ const example = {
     },
     filtered() {
       return animals.filter(animal => {
-        return (type === 'all' || animal.type === type)
-          && (age === 0 || animal.age > age) 
+        return (type === '' || animal.type === type)
+          && (age < 0 || animal.age > age) 
           && (neutered === undefined || animal.neutered === neutered)
       });
     }
