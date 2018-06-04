@@ -10,7 +10,6 @@ Class 06: HTTP, AJAX and JSON
 
 * How does Framework/Library "know" data has changed?
 * Review Object Refs
-* Ref vs Val Passing and VueJS Updates
 
 ## JSON and AJAX
 
