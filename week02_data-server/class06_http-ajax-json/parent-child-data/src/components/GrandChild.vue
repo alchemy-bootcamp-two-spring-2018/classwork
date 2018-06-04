@@ -1,18 +1,18 @@
 <template>
   <div>
     <h2>Grand Child Component</h2>
-    <input :value="search" @input="callBus">
+    <input :value="search" @input="onSearch($event.target.value)">
   </div>
 </template>
 
 <script>
-import bus from '../eventBus';
 
 export default {
-  props: ['search'],
-  methods: {
-    callBus(event) {
-      bus.$emit('update', event.target.value);
+  props: {
+    search: String, 
+    onSearch: {
+      type: Function,
+      required: true
     }
   }
 };

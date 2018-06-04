@@ -2,15 +2,14 @@
   <div id="app">
     Search is {{ search }}
     <!-- <input :value="search.term" @input="search.term = $event.target.value"> -->
-    <Child :search="search" @update="updateSearch"/>
-    <PremadeSearch :search="search" @update="updateSearch"/>
+    <Child :search="search" :onSearch="updateSearch"/>
+    <PremadeSearch :search="search" :onSearch="updateSearch"/>
   </div>
 </template>
 
 <script>
 import Child from './components/Child.vue';
 import PremadeSearch from './components/PremadeSearch.vue';
-import bus from './eventBus';
 
 export default {
   data() {
@@ -21,12 +20,6 @@ export default {
   components: {
     Child,
     PremadeSearch
-  },
-  created() {
-    bus.$on('update', term => {
-      console.log('event bus fired with', term);
-      this.search = term;
-    });
   },
   methods: {
     updateSearch(term) {

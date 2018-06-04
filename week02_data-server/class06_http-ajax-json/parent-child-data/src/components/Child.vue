@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Child Component</h2>
-    <GrandChild :search="search" @update="$emit('update', $event)"/>
+    <GrandChild :search="search" :onSearch="onSearch"/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   components: {
     GrandChild
   },
-  props: ['search']
+  props: ['search', 'onSearch']
 };
 
 </script>
