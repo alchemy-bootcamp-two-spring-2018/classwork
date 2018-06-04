@@ -1,17 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Search is {{ search }}
+    <!-- <input :value="search.term" @input="search.term = $event.target.value"> -->
+    <Child :search="search" @update="updateSearch"/>
+    <button @click="search = 'cats'">cats</button>
+    <button @click="search = 'dogs'">dogs</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Child from './components/Child.vue';
 
 export default {
-  name: 'app',
+  data() {
+    return {
+      search: 'cats'
+    };
+  },
   components: {
-    HelloWorld
+    Child
+  },
+  methods: {
+    updateSearch(term) {
+      this.search = term;
+    }
   }
 };
 
