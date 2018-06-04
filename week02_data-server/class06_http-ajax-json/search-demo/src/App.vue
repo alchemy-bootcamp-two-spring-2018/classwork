@@ -12,6 +12,9 @@ import PeopleList from './components/PeopleList';
 import Loading from './components/Loading';
 import { getPeople } from './services/api';
 
+// eslint-disable-next-line
+console.log(process.env.VUE_APP_API_KEY);
+
 export default {
   data() {
     return {
