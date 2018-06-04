@@ -10,6 +10,7 @@
 <script>
 import Child from './components/Child.vue';
 import PremadeSearch from './components/PremadeSearch.vue';
+import bus from './eventBus';
 
 export default {
   data() {
@@ -20,6 +21,12 @@ export default {
   components: {
     Child,
     PremadeSearch
+  },
+  created() {
+    bus.$on('update', term => {
+      console.log('event bus fired with', term);
+      this.search = term;
+    });
   },
   methods: {
     updateSearch(term) {
