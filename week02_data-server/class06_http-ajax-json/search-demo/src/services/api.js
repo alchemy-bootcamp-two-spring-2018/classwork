@@ -7,6 +7,7 @@
 // 4) search or query
 //    - separated from path via "?"
 //    - name=value pairs separted by "&"
+//    - use "encodeURIComponent" to escape search values
 //    ?APIKEY=abc123&search=name
 
 export function getPeople(name) {
