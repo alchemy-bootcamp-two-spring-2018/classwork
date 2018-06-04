@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loading :loading="loading"/>
     <SearchControl :onSearch="handleSearch"/>
     <PeopleList :people="people"/>
   </div>
@@ -8,28 +9,29 @@
 <script>
 import SearchControl from './components/SearchControl';
 import PeopleList from './components/PeopleList';
+import Loading from './components/Loading';
+import { getPeople } from './services/api';
 
 export default {
   data() {
     return {
-      people: null
+      people: null,
+      loading: false
     };
   },
   components: {
     PeopleList,
-    SearchControl
-  },
-  created() {
-
-    fetch('https://swapi.co/api/people')
-      .then(response => response.json())
-      .then(data => {
-        this.people = data.results;
-      });
+    SearchControl,
+    Loading
   },
   methods: {
     handleSearch(name) {
-      console.log('name to search on is', name);
+      this.loading = true;
+
+      getPeople(name).then(data => {
+        this.people = data.results;
+        this.loading = false;
+      });
     }
   }
 };
@@ -44,5 +46,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 30px;
+  position: relative;
 }
 </style>
