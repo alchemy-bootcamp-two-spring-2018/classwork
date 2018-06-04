@@ -15,9 +15,6 @@
     "browser": true,
     "es6": true
   },
-  "settings": {
-    "html/xml-extensions": [".html"]
-  },
   "rules": {
     "eqeqeq": ["error", "always"],
     "no-console": "off",
