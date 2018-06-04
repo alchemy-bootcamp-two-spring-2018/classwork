@@ -3,13 +3,13 @@
     Search is {{ search }}
     <!-- <input :value="search.term" @input="search.term = $event.target.value"> -->
     <Child :search="search" @update="updateSearch"/>
-    <button @click="search = 'cats'">cats</button>
-    <button @click="search = 'dogs'">dogs</button>
+    <PremadeSearch :search="search" @update="updateSearch"/>
   </div>
 </template>
 
 <script>
 import Child from './components/Child.vue';
+import PremadeSearch from './components/PremadeSearch.vue';
 
 export default {
   data() {
@@ -18,7 +18,8 @@ export default {
     };
   },
   components: {
-    Child
+    Child,
+    PremadeSearch
   },
   methods: {
     updateSearch(term) {

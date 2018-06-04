@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>Child Component</h1>
+  <div>
+    <h2>Child Component</h2>
     <GrandChild :search="search" @update="$emit('update', $event)"/>
   </div>
 </template>
