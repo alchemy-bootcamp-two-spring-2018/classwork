@@ -1,5 +1,5 @@
 <template id="neighborhood-template">
-  <section class="add-neighborhood">
+  <section class="neighborhood-form">
     <form @submit.prevent="handleSubmit">
       <label>
         Name:
@@ -55,7 +55,7 @@
 const initNeigborhood = () => {
   return {
     name: '',
-    city: 'Portland',
+    quadrantId: '',
     population: '',
     founded: '',
     description: ''
@@ -93,10 +93,9 @@ export default {
 
 <style>
 
-.add-neighborhood {
+.neighborhood-form {
   width: 300px;
   text-align: left;
-  margin: auto;
 }
 
 label {

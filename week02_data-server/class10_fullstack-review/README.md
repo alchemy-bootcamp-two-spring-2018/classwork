@@ -6,3 +6,4 @@ Class 10: Fullstack review
 * Lookup tables
 * Parent/child
 * Aggregation
+* Components

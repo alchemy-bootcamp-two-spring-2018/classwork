@@ -1,22 +1,13 @@
 <template id="neighborhood-template">
-  <div>
-    <article v-if="!editing">
-      <h3>
-        {{ neighborhood.name }}
+  <li>
+    <article 
+      v-if="!editing"
+      @click="handleSelect">
+        <strong>{{ neighborhood.name }}</strong>
+        &nbsp;
+        <span class="size">a <em>{{ size }}</em> neighborhood</span> in {{ quadrant }} 
         <button v-if="!editing" @click="editing = true">✏️</button>
-      </h3>
-      <p>Quadrant: {{ quadrant }}</p>
-      <p>Founded: {{ neighborhood.founded }}</p>
-      <p class="population">
-        Current population: 
-        <strong>{{ population }}</strong> 
-      </p>
-      <p class="population">
-        <span class="size">(a <em>{{ size }}</em> neighborhood)</span>
-      </p>
-      <p>
-        <button @click="handleClick">remove this neighborhood</button>
-      </p>
+        <button @click="handleClick">🗑</button>
     </article>
     <NeighborhoodForm 
       v-else 
@@ -26,7 +17,7 @@
       :on-edit="handleUpdate"
       :on-cancel="() => editing = false"
     />
-  </div>
+  </li>
 </template>
 
 <script>
@@ -45,7 +36,8 @@ export default {
     'neighborhood',
     'quadrants',
     'onRemove',
-    'onUpdate'
+    'onUpdate',
+    'onSelect'
   ],
   computed: {
     quadrant() {
@@ -71,6 +63,9 @@ export default {
         .then(() => {
           this.editing = false;
         });
+    },
+    handleSelect() {
+      this.onSelect(this.neighborhood.id);
     }
   }
 };
@@ -78,6 +73,16 @@ export default {
 </script>
 
 <style scoped>
+
+li {
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px 0;
+}
+
+li:hover {
+  background: #aaa;
+}
 
 h3 {
   margin: 40px 0 0;

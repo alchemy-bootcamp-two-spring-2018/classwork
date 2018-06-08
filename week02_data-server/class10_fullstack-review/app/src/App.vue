@@ -2,6 +2,7 @@
   <div id="app">
     <header>
       <img src="./assets/logo.png">
+      <h2>Portland Neighborhoods</h2>
     </header>
 
     <main>
@@ -14,7 +15,11 @@
 import Neighborhoods from './components/Neighborhoods.vue';
 
 export default {
-  name: 'app',
+  data() {
+    return {
+      page: 'neighborhoods'
+    };
+  },
   components: {
     Neighborhoods  
   }
@@ -27,9 +32,12 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 20px;
+}
+
+header {
+  text-align: center;
 }
 
 header img {

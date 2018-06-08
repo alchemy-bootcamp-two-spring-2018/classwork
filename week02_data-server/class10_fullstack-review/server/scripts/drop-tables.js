@@ -1,6 +1,7 @@
 const client = require('../db-client');
 
 client.query(`
+  DROP TABLE IF EXISTS restaurants;
     DROP TABLE IF EXISTS neighborhoods;
     DROP TABLE IF EXISTS quadrants;
 `)

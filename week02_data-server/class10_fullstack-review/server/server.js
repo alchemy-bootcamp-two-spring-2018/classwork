@@ -18,17 +18,14 @@ client.connect();
 app.get('/api/neighborhoods', (req, res) => {
 
   client.query(`
-    select n.id, 
-      n.name, 
-      q.id as "quadrantId", 
-      q.name || ' (' || q.direction || ')' as "quadrantName", 
+    select id, 
+      name, 
+      quadrant_id as "quadrantId", 
       description, 
       population, 
       founded
-    from neighborhoods n
-    join quadrants q
-    on n.quadrant_id = q.id
-    order by n.name;
+    from neighborhoods
+    order by name;
   `).then(result => {
     res.send(result.rows);
   });
@@ -41,7 +38,7 @@ app.post('/api/neighborhoods', (req, res) => {
   client.query(`
     insert into neighborhoods (name, quadrant_id, population, founded, description)
     values ($1, $2, $3, $4, $5)
-    returning *;
+    returning *, quadrant_id as "quadrantId";
   `,
   [body.name, body.quadrantId, body.population, body.founded, body.description]
   ).then(result => {
@@ -62,7 +59,7 @@ app.put('/api/neighborhoods/:id', (req, res) => {
       founded = $4,
       description = $5
     where id = $6
-    returning *;
+    returning *, quadrant_id as "quadrantId";
   `,
   [body.name, body.quadrantId, body.population, body.founded, body.description, req.params.id]
   ).then(result => {
@@ -90,6 +87,34 @@ app.get('/api/quadrants', (req, res) => {
     });
 });
 
+app.get('/api/restaurants', (req, res) => {
+  console.log('changed big code');
+  client.query(`
+    select * 
+    from restaurants
+    where neighborhood_id=$1
+  `,
+  [req.query.neighborhoodId]
+  )
+    .then(result => {
+      res.send(result.rows);
+    });
+});
+
+app.post('/api/restaurants', (req, res) => {
+  const body = req.body;
+
+  client.query(`
+    insert into restaurants (name, cuisine, neighborhood_id)
+    values ($1, $2, $3)
+    returning *, neighborhood_id as "neighborhoodId";
+  `,
+  [body.name, body.cuisine, body.neighborhoodId])
+    .then(result => {
+      res.send(result.rows[0]);
+    });
+});
+
 
 // start "listening" (run) the app (server)
-app.listen(3000, () => console.log('app running...'));
+app.listen(3000, () => console.log('server running...'));
