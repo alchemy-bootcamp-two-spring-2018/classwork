@@ -88,7 +88,6 @@ app.get('/api/quadrants', (req, res) => {
 });
 
 app.get('/api/restaurants', (req, res) => {
-  console.log('changed big code');
   client.query(`
     select * 
     from restaurants
