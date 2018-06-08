@@ -1,5 +1,5 @@
 <template id="neighborhood-template">
-  <li>
+  <li :class="{ selected }">
     <article 
       v-if="!editing"
       @click="handleSelect">
@@ -35,6 +35,7 @@ export default {
   props: [
     'neighborhood',
     'quadrants',
+    'selected',
     'onRemove',
     'onUpdate',
     'onSelect'
@@ -82,6 +83,10 @@ li {
 
 li:hover {
   background: #aaa;
+}
+
+.selected {
+  background: coral;
 }
 
 h3 {

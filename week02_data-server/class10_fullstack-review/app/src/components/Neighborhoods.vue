@@ -15,6 +15,7 @@
       :key="neighborhood.name"
       :neighborhood="neighborhood"
       :quadrants="quadrants"
+      :selected="neighborhood.id === selectedId"
       :on-remove="handleRemove"
       :on-update="handleUpdate"
       :on-select="handleSelect"
