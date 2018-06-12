@@ -2,15 +2,14 @@
   <div id="app">
     <h1>Router Demo</h1>
     <nav>
-      <router-link to="/">Go to Home</router-link>
+      <RouterLink to="/">Go to <strong>Home</strong></RouterLink>
       &nbsp;
-      <router-link to="/about">Go to About</router-link>
+      <RouterLink to="/about">Go to About</RouterLink>
       &nbsp;
-      <router-link to="/quadrants">Go to Quadrants</router-link>
+      <RouterLink to="/quadrants">Go to Quadrants</RouterLink>
     </nav>
 
-    <router-view></router-view>
-
+    <RouterView/>
   </div>
 </template>
 

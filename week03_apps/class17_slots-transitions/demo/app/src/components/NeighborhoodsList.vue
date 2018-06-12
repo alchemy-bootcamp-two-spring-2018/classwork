@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>I am NeigborhoodsList</h3>
+    <h3>Neigborhoods List</h3>
     <ul v-if="neighborhoods">
       <li
         v-for="neighborhood in neighborhoods"

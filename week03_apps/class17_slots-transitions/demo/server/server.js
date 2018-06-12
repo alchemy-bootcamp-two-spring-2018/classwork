@@ -4,6 +4,8 @@ const app = express();
 
 // middleware (cors and read json body)
 const cors = require('cors');
+const morgan = require('morgan');
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
@@ -104,9 +106,9 @@ app.get('/api/quadrants/:id', (req, res) => {
   [req.params.id]);
 
   Promise.all([quadrantPromise, neighborhoodsPromise])
-    .then(results => {
-      const quadrantResult = results[0];
-      const neighborhoodsResult = results[1];
+    .then(promiseValues => {
+      const quadrantResult = promiseValues[0];
+      const neighborhoodsResult = promiseValues[1];
 
       if(quadrantResult.rows.length === 0) {
         res.sendStatus(404);
@@ -115,7 +117,6 @@ app.get('/api/quadrants/:id', (req, res) => {
 
       const quadrant = quadrantResult.rows[0];
       const neighborhoods = neighborhoodsResult.rows;
-
       quadrant.neighborhoods = neighborhoods;
 
       res.send(quadrant);

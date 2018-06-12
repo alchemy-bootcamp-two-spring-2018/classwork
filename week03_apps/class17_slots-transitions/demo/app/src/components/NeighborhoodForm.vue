@@ -1,43 +1,41 @@
 <template id="neighborhood-template">
   <section class="neighborhood-form">
     <form @submit.prevent="handleSubmit">
-      <label>
-        Name:
-        <input type="text" name="name" placeholder="Name" required
+      <FormControl label="Name">
+        <input type="text" 
+          name="name" placeholder="Name" required
           v-model="edit.name">
-      </label>
+      </FormControl>
 
-      <label>
-        Population:
+      <FormControl label="Population">
         <input type="number" name="population" placeholder="Population" required
           v-model.number="edit.population">
-      </label>
+      </FormControl>
 
-      <label>
-        Founded:
+      <FormControl label="Founded">
         <input type="number" name="founded" placeholder="Founded" required
           v-model.number="edit.founded">
-      </label>
+      </FormControl>
 
-      <label>
-        Description:
+      <FormControl label="Description">
         <textarea name="body" rows="8" cols="40" required 
           v-model="edit.description"></textarea>
-      </label>
+      </FormControl>
       
-      <label>
+      <FormControl>
         <button type="submit">{{ label }}</button>
         <button 
           v-if="onCancel"
           @click="onCancel">
           Cancel
         </button>
-      </label>
+      </FormControl>
     </form>
   </section>
 </template>
 
 <script>
+import FormControl from './FormControl';
 
 const initNeigborhood = () => {
   return {
@@ -50,6 +48,9 @@ const initNeigborhood = () => {
 };
 
 export default {
+  components: {
+    FormControl
+  },
   props: {
     neighborhood: Object,
     quadrants: Array,

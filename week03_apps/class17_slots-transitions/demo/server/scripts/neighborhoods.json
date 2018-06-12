@@ -44,14 +44,14 @@
   {
     "name": "Alchemy",
     "quadrant_id": 1,
-    "population": "1337",
+    "population": 1337,
     "founded": "2017",
     "description": "Sovereign neighborhood in the heart of Portland"
   },
   {
     "name": "Floaty",
     "quadrant_id": 6,
-    "population": "232",
+    "population": 232,
     "founded": "232",
     "description": "Look to the clouds"
   }

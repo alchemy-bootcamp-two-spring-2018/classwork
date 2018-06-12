@@ -10,7 +10,8 @@
   "dependencies": {
     "eslint-plugin-html": "^4.0.3",
     "vue": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-tabs-component": "^1.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.16",

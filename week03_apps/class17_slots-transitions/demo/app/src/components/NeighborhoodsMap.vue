@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>I am NeighborhoodsMap</h3>
+    <h3>Neighborhoods Map</h3>
     <p>
       I would display map with 
       {{ neighborhoods.length }}
