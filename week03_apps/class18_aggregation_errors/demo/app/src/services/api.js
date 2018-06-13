@@ -39,7 +39,12 @@ export function getQuadrants() {
   return fetch(`${URL}/quadrants`, {
     headers: { 'Content-Type': 'application/json' }
   })
-    .then(response => response.json());
+    .then(response => {
+      if(response.ok) return response.json();
+      return response.text()
+        .then(err => { throw err; });
+    })
+    .catch(err => console.log(err));
 }
 
 export function getQuadrant(id) {

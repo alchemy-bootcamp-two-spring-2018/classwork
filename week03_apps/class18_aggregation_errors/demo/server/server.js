@@ -75,13 +75,13 @@ app.delete('/api/neighborhoods/:id', (req, res) => {
   });
 });
 
-app.get('/api/quadrants', (req, res) => {
+app.get('/api/quadrants', (req, res, next) => {
 
   client.query(`
     select 
-      q.id, q.name, q.direction,
+      q.id, q.name, q.directions,
       count(n.id) as "neighborhoodCount",
-      avg(n.population) as "populationAvg"
+      avg(n.population) as "populationAvg "
     from quadrants q
     left join neighborhoods n
     on q.id = n.quadrant_id
@@ -90,6 +90,9 @@ app.get('/api/quadrants', (req, res) => {
   `)
     .then(result => {
       res.send(result.rows);
+    })
+    .catch(err => {
+      next(err);
     });
 });
 
@@ -154,6 +157,26 @@ app.post('/api/restaurants', (req, res) => {
     });
 });
 
+// must use all 4 parameters so express "knows" this is custom error handler!
+// eslint-disable-next-line
+app.use((err, req, res, next) => {
+  let message;
+  // no err - custom "internal server error"
+  if(!err) message = "internal server error"
+  // yes err
+  // yes message prop - send message
+  else if(err.message) message = err.message;
+  // no, 
+  // is string? - send err
+  else if(typeof err === 'string') message = err;
+        // send custom "internal server error"
+  else message = "internal server error"
+
+
+    res.send({ 
+    message: err ? err.message 
+  });
+});
 
 // start "listening" (run) the app (server)
 app.listen(3000, () => console.log('server running...'));
