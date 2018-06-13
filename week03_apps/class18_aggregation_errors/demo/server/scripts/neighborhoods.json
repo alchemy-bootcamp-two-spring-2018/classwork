@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Hawthorn",
+    "quadrant_id": 5,
+    "population": 31821,
+    "founded": "1830",
+    "description": "Get some used threads and coffee"
+  },
+  {
+    "name": "Alberta",
+    "quadrant_id": 2,
+    "population": 19233,
+    "founded": "1878",
+    "description": "Don't forget your tatoo and piercings!"
+  },
+  {
+    "name": "Northwest",
+    "quadrant_id": 1,
+    "population": 40000,
+    "founded": "1899",
+    "description": "Fashion, eateries and dogs"
+  },
+  {
+    "name": "Pearl District",
+    "quadrant_id": 1,
+    "population": 23566,
+    "founded": "1820",
+    "description": "Used to be an industrial area, look at it now"
+  },
+  {
+    "name": "Sellwood",
+    "quadrant_id": 5,
+    "population": 13566,
+    "founded": "1824",
+    "description": "Lots o antiques"
+  },
+  {
+    "name": "Lents",
+    "quadrant_id": 2,
+    "population": 23566,
+    "founded": "1844",
+    "description": "That one out east"
+  },
+  {
+    "name": "Alchemy",
+    "quadrant_id": 1,
+    "population": 1337,
+    "founded": "2017",
+    "description": "Sovereign neighborhood in the heart of Portland"
+  },
+  {
+    "name": "Floaty",
+    "quadrant_id": 6,
+    "population": 232,
+    "founded": "232",
+    "description": "Look to the clouds"
+  }
+]

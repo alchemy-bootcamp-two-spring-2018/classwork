@@ -1,0 +1,8 @@
+[
+  { "name": "Northwest", "direction": "NW" },
+  { "name": "Northeast", "direction": "NE" },
+  { "name": "North", "direction": "N" },
+  { "name": "Southwest", "direction": "SW" },
+  { "name": "Southeast", "direction": "SE" },
+  { "name": "South", "direction": "S" }
+]
