@@ -31,6 +31,7 @@
         </button>
       </FormControl>
     </form>
+    <pre>{{ error }}</pre>
   </section>
 </template>
 
@@ -63,15 +64,20 @@ export default {
   },
   data() {
     return {
+      error: null,
       edit: this.neighborhood ? Object.assign({}, this.neighborhood) : initNeigborhood()
     };
   },
   methods: {
     handleSubmit() {
+      this.error = null;
       return this.onEdit(this.edit)
         // this fires when save is complete and data added to nieghborhoods array
         .then(() => {
           this.edit = initNeigborhood();
+        })
+        .catch(err => {
+          this.error = err;
         });
     }
   }

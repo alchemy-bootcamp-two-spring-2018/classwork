@@ -13,7 +13,7 @@ app.use(express.json());
 const client = require('./db-client');
 
 // routes
-app.get('/api/neighborhoods', (req, res) => {
+app.get('/api/neighborhoods', (req, res, next) => {
 
   client.query(`
     select id, 
@@ -26,13 +26,15 @@ app.get('/api/neighborhoods', (req, res) => {
     order by name;
   `).then(result => {
     res.send(result.rows);
-  });
+  })
+    .catch(next);
 
 });
 
-app.post('/api/neighborhoods', (req, res) => {
+app.post('/api/neighborhoods', (req, res, next) => {
   const body = req.body;
-
+  if(body.name === 'error') return next('bad name');
+  
   client.query(`
     insert into neighborhoods (name, quadrant_id, population, founded, description)
     values ($1, $2, $3, $4, $5)
@@ -42,10 +44,11 @@ app.post('/api/neighborhoods', (req, res) => {
   ).then(result => {
     // send back object
     res.send(result.rows[0]);
-  });
+  })
+    .catch(next);
 });
 
-app.put('/api/neighborhoods/:id', (req, res) => {
+app.put('/api/neighborhoods/:id', (req, res, next) => {
   const body = req.body;
 
   client.query(`
@@ -62,24 +65,26 @@ app.put('/api/neighborhoods/:id', (req, res) => {
   [body.name, body.quadrantId, body.population, body.founded, body.description, req.params.id]
   ).then(result => {
     res.send(result.rows[0]);
-  });
+  })
+    .catch(next);
 });
 
-app.delete('/api/neighborhoods/:id', (req, res) => {
+app.delete('/api/neighborhoods/:id', (req, res, next) => {
   client.query(`
     delete from neighborhoods where id=$1;
   `,
   [req.params.id]
   ).then(() => {
     res.send({ removed: true });
-  });
+  })
+    .catch(next);
 });
 
 app.get('/api/quadrants', (req, res, next) => {
 
   client.query(`
     select 
-      q.id, q.name, q.directions,
+      q.id, q.name, q.direction,
       count(n.id) as "neighborhoodCount",
       avg(n.population) as "populationAvg "
     from quadrants q
@@ -91,12 +96,15 @@ app.get('/api/quadrants', (req, res, next) => {
     .then(result => {
       res.send(result.rows);
     })
-    .catch(err => {
-      next(err);
-    });
+    // we don't need the wrapper function:
+    // .catch(err => {
+    //   next(err);
+    // });
+    // we can just pass next _as_ the error callback function:
+    .catch(next);
 });
 
-app.get('/api/quadrants/:id', (req, res) => {
+app.get('/api/quadrants/:id', (req, res, next) => {
 
   const quadrantPromise = client.query(`
     select id, name, direction
@@ -127,10 +135,11 @@ app.get('/api/quadrants/:id', (req, res) => {
       quadrant.neighborhoods = neighborhoods;
 
       res.send(quadrant);
-    });
+    })
+    .catch(next);
 });
 
-app.get('/api/restaurants', (req, res) => {
+app.get('/api/restaurants', (req, res, next) => {
   client.query(`
     select * 
     from restaurants
@@ -140,10 +149,11 @@ app.get('/api/restaurants', (req, res) => {
   )
     .then(result => {
       res.send(result.rows);
-    });
+    })
+    .catch(next);
 });
 
-app.post('/api/restaurants', (req, res) => {
+app.post('/api/restaurants', (req, res, next) => {
   const body = req.body;
 
   client.query(`
@@ -154,28 +164,18 @@ app.post('/api/restaurants', (req, res) => {
   [body.name, body.cuisine, body.neighborhoodId])
     .then(result => {
       res.send(result.rows[0]);
-    });
+    })
+    .catch(next);
 });
 
 // must use all 4 parameters so express "knows" this is custom error handler!
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
-  let message;
-  // no err - custom "internal server error"
-  if(!err) message = "internal server error"
-  // yes err
-  // yes message prop - send message
-  else if(err.message) message = err.message;
-  // no, 
-  // is string? - send err
+  console.log('***SERVER ERROR**\n', err);
+  let message = 'internal server error';
+  if(err.message) message = err.message;
   else if(typeof err === 'string') message = err;
-        // send custom "internal server error"
-  else message = "internal server error"
-
-
-    res.send({ 
-    message: err ? err.message 
-  });
+  res.status(500).send({ message });
 });
 
 // start "listening" (run) the app (server)

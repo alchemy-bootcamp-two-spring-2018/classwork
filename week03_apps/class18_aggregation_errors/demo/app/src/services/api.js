@@ -3,6 +3,13 @@ const URL = 'http://localhost:3000/api';
 const NEIGHBORHOODS_URL = `${URL}/neighborhoods`;
 const RESTAURANTS_URL = `${URL}/restaurants`;
 
+function responseHandler(response) {
+  if(response.ok) return response.json();
+  return response.json().then(err => { 
+    throw err.message; 
+  });
+}
+
 export function getNeighborhoods() {
   return fetch(NEIGHBORHOODS_URL, {
     headers: { 'Content-Type': 'application/json' }
@@ -16,7 +23,7 @@ export function addNeighborhood(neighborhood) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(neighborhood)
   })
-    .then(response => response.json());
+    .then(responseHandler);
 }
 
 export function updateNeighborhood(neighborhood) {
@@ -39,12 +46,7 @@ export function getQuadrants() {
   return fetch(`${URL}/quadrants`, {
     headers: { 'Content-Type': 'application/json' }
   })
-    .then(response => {
-      if(response.ok) return response.json();
-      return response.text()
-        .then(err => { throw err; });
-    })
-    .catch(err => console.log(err));
+    .then(responseHandler);
 }
 
 export function getQuadrant(id) {

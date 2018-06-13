@@ -20,6 +20,10 @@ export default {
 
 <style>
 
+pre {
+  color: red;
+}
+
 ul.list {
   margin: 0;
   padding: 0;
