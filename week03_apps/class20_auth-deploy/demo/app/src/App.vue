@@ -12,7 +12,7 @@
       <a v-else @click.prevent="handleLogout">Logout</a>
     </nav>
     <pre>{{ user }}</pre>
-    <RouterView :on-user="handleUser"/>
+    <RouterView :on-user="handleUser" :user="user"/>
   </div>
 </template>
 
