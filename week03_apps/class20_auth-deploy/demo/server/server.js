@@ -19,8 +19,19 @@ app.use(express.static('public'));
 // connect to the database
 const client = require('./db-client');
 
+const auth = (req, res, next) => {
+  const id = req.get('Authorization');
+  if(!id || isNaN(id)) {
+    next('No Authentication');
+    return;
+  }
+
+  req.userId = +id;
+  next();
+};
+
 // routes
-app.get('/api/neighborhoods', (req, res, next) => {
+app.get('/api/neighborhoods', auth, (req, res, next) => {
 
   client.query(`
     select id, 
@@ -38,13 +49,16 @@ app.get('/api/neighborhoods', (req, res, next) => {
 
 });
 
-app.post('/api/neighborhoods', (req, res, next) => {
+app.post('/api/neighborhoods', auth, (req, res, next) => {
   const body = req.body;
   if(body.name === 'error') return next('bad name');
+
+  // get user id via:
+  const userId = req.userId;
   
   client.query(`
     insert into neighborhoods (name, quadrant_id, population, founded, description)
-    values ($1, $2, $3, $4, $5)
+    values ($1, $2, $3, $4, $5, $6)
     returning *, quadrant_id as "quadrantId";
   `,
   [body.name, body.quadrantId, body.population, body.founded, body.description]
@@ -55,7 +69,7 @@ app.post('/api/neighborhoods', (req, res, next) => {
     .catch(next);
 });
 
-app.put('/api/neighborhoods/:id', (req, res, next) => {
+app.put('/api/neighborhoods/:id', auth, (req, res, next) => {
   const body = req.body;
 
   client.query(`
@@ -76,7 +90,7 @@ app.put('/api/neighborhoods/:id', (req, res, next) => {
     .catch(next);
 });
 
-app.delete('/api/neighborhoods/:id', (req, res, next) => {
+app.delete('/api/neighborhoods/:id', auth, (req, res, next) => {
   client.query(`
     delete from neighborhoods where id=$1;
   `,
@@ -87,7 +101,7 @@ app.delete('/api/neighborhoods/:id', (req, res, next) => {
     .catch(next);
 });
 
-app.get('/api/quadrants', (req, res, next) => {
+app.get('/api/quadrants', auth, (req, res, next) => {
 
   client.query(`
     select 
@@ -111,7 +125,7 @@ app.get('/api/quadrants', (req, res, next) => {
     .catch(next);
 });
 
-app.get('/api/quadrants/:id', (req, res, next) => {
+app.get('/api/quadrants/:id', auth, (req, res, next) => {
 
   const quadrantPromise = client.query(`
     select id, name, direction
@@ -146,7 +160,7 @@ app.get('/api/quadrants/:id', (req, res, next) => {
     .catch(next);
 });
 
-app.get('/api/restaurants', (req, res, next) => {
+app.get('/api/restaurants', auth, (req, res, next) => {
   request.get(`${process.env.RESTAURANTS_API}/restaurant-inspections/`)
     .then(result => {
       res.send(result.body.results.map(rest => {
@@ -181,11 +195,11 @@ app.post('/api/auth/signup', (req, res, next) => {
       }
 
       return client.query(`
-        insert into users (email, name, password)
+        insert into users (email, password, name)
         values ($1, $2, $3)
         returning id, email, name
       `,
-      [email, body.name, password]);
+      [email, password, body.name]);
     })
     .then(results => {
       const row = results.rows[0];

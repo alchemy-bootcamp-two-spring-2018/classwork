@@ -11,7 +11,7 @@ Auth and Deploy
 ### User Management
 
 1. Add table to db for users
-1. Add `/signup` and `signin` routes
+1. Add `/signup` and `/signin` routes
     1. signup checks for uniqueness of user (by username or email), then creates if not already taken
     1. signin selects by email from users table and then and checks password
     1. Both respond with `{ id: id-of-user }`
@@ -21,7 +21,7 @@ Auth and Deploy
 
 ### Auth Token
 
-1. On successful signup/in, store the user object (the one with the id) in local storage
+1. On successful signup/in, event the user object (the one with the id) up to the App and store in data and in local storage.
 1. In services api, add header to `fetch` that gets token from localstorage (if it exists) and puts value of user id into "Authorization" header
 1. On server, add middleware that checks for token
     1. Send back error if not found

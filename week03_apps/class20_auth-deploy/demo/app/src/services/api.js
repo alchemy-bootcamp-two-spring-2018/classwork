@@ -11,9 +11,28 @@ function responseHandler(response) {
   });
 }
 
+function getHeaders(hasBody) {
+  const headers = {};
+  if(hasBody) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  const user = localStorage.user;
+  if(user) {
+    try {
+      headers['Authorization'] = JSON.parse(user).id;
+    }
+    catch(err) {
+      localStorage.removeItem('user');
+    }
+  }
+
+  return headers;
+}
+
 export function getNeighborhoods() {
   return fetch(NEIGHBORHOODS_URL, {
-    headers: { 'Content-Type': 'application/json' }
+    headers: getHeaders()
   })
     .then(response => response.json());
 }
@@ -21,7 +40,7 @@ export function getNeighborhoods() {
 export function addNeighborhood(neighborhood) {
   return fetch(NEIGHBORHOODS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getHeaders(true),
     body: JSON.stringify(neighborhood)
   })
     .then(responseHandler);
@@ -30,7 +49,7 @@ export function addNeighborhood(neighborhood) {
 export function updateNeighborhood(neighborhood) {
   return fetch(`${NEIGHBORHOODS_URL}/${neighborhood.id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getHeaders(true),
     body: JSON.stringify(neighborhood)
   })
     .then(response => response.json());
@@ -38,21 +57,22 @@ export function updateNeighborhood(neighborhood) {
 
 export function removeNeighborhood(id) {
   return fetch(`${NEIGHBORHOODS_URL}/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: getHeaders()
   })
     .then(response => response.json());
 }
 
 export function getQuadrants() {
   return fetch(`${URL}/quadrants`, {
-    headers: { 'Content-Type': 'application/json' }
+    headers: getHeaders()
   })
     .then(responseHandler);
 }
 
 export function getQuadrant(id) {
   return fetch(`${URL}/quadrants/${id}`, {
-    headers: { 'Content-Type': 'application/json' }
+    headers: getHeaders()
   })
     .then(response => response.json());
 }
@@ -61,7 +81,7 @@ export function getRestaurants(neighborhoodId) {
   // use `encodeURIComponent(value)` if things in query string need
   // to be escaped (like spaces, punctuation, etc)
   return fetch(`${RESTAURANTS_URL}?neighborhoodId=${neighborhoodId}`, {
-    headers: { 'Content-Type': 'application/json' }
+    headers: getHeaders()
   })
     .then(response => response.json());
 }
@@ -69,7 +89,7 @@ export function getRestaurants(neighborhoodId) {
 export function addRestaurant(restaurant) {
   return fetch(RESTAURANTS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getHeaders(true),
     body: JSON.stringify(restaurant)
   })
     .then(response => response.json());
@@ -78,7 +98,7 @@ export function addRestaurant(restaurant) {
 export function signUp(credentials) {
   return fetch(`${AUTH_URL}/signup`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getHeaders(true),
     body: JSON.stringify(credentials)
   })
     .then(responseHandler);
@@ -87,7 +107,7 @@ export function signUp(credentials) {
 export function signIn(credentials) {
   return fetch(`${AUTH_URL}/signin`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getHeaders(true),
     body: JSON.stringify(credentials)
   })
     .then(responseHandler);

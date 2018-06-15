@@ -13,17 +13,18 @@
 
     <form @submit.prevent="handleSubmit">
       <FormControl v-if="isSignUp" label="Name">
-        <input v-model="credentials.name">
+        <input required v-model="credentials.name">
       </FormControl>
 
       <FormControl label="Email">
-        <input v-model="credentials.email">
+        <input required v-model="credentials.email">
       </FormControl>
       
       <FormControl label="Password">
         <input 
           :type="show ? 'text' : 'password'" 
-          v-model="credentials.password">
+          v-model="credentials.password"
+          required>
         <button 
           @click="show = !show"
           type="button"
@@ -45,6 +46,8 @@
 import { signUp, signIn } from '../services/api';
 import FormControl from './FormControl';
 
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default {
   components: {
     FormControl
@@ -53,13 +56,15 @@ export default {
     return {
       credentials: {
         email: '',
-        password: ''
+        password: '',
+        name: ''
       },
       show: false,
       type: 'signIn',
-      error: null
+      error: null,
     };
   },
+  props: ['onUser'],
   computed: {
     isSignUp() {
       return this.type === 'signUp';
@@ -70,10 +75,18 @@ export default {
   },
   methods: {
     handleSubmit() {
+      if(!emailRegex.test(this.credentials.email)) {
+        this.error = 'email not valid';
+        return;
+      }
+
       this.error = null;
       const action = this.isSignUp ? signUp : signIn;
       action(this.credentials)
-        .then(result => console.log(result))
+        .then(user => {
+          this.onUser(user);
+          this.$router.push('/');
+        })
         .catch(err => this.error = err);
     }
   }

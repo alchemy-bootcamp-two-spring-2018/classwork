@@ -6,19 +6,45 @@
       &nbsp;
       <RouterLink to="/about">About</RouterLink>
       &nbsp;
-      <RouterLink to="/quadrants">Quadrants</RouterLink>
+      <RouterLink v-if="user" to="/quadrants">Quadrants</RouterLink>
       &nbsp;
-      <RouterLink to="/auth">Sign In</RouterLink>
+      <RouterLink v-if="!user" to="/auth">Sign In</RouterLink>
+      <a v-else @click.prevent="handleLogout">Logout</a>
     </nav>
-
-    <RouterView/>
+    <pre>{{ user }}</pre>
+    <RouterView :on-user="handleUser"/>
   </div>
 </template>
 
 <script>
 
 export default {
-
+  data() {
+    return {
+      user: null
+    };
+  },
+  created() {
+    const raw = localStorage.user;
+    if(raw) {
+      try {
+        this.user = JSON.parse(raw);
+      }
+      catch(err) {
+        localStorage.removeItem('user');
+      }
+    }
+  },
+  methods: {
+    handleUser(user) {
+      this.user = user;
+      localStorage.user = JSON.stringify(user);
+    },
+    handleLogout() {
+      localStorage.removeItem('user');
+      this.user = null;
+    }
+  }
 };
 
 </script>
@@ -39,6 +65,7 @@ h1, nav {
 nav a {
   padding: 5px 10px;
   color: steelblue;
+  pointer: cursor;
 }
 
 nav a:hover {
