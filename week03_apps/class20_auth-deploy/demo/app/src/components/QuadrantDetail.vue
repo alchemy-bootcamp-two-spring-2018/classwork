@@ -2,11 +2,11 @@
   <div v-if="quadrant !== null">
     <h2>{{ quadrant.name }} {{ quadrant.direction }}</h2>
     <nav>
-      <NavLink :to="`/quadrants/${quadrant.id}/list`">list</NavLink>
+      <RouterLink :to="`/quadrants/${quadrant.id}/list`">list</RouterLink>
       &nbsp;
-      <NavLink :to="`/quadrants/${quadrant.id}/map`">map</NavLink>
+      <RouterLink :to="`/quadrants/${quadrant.id}/map`">map</RouterLink>
       &nbsp;
-      <NavLink :to="`/quadrants/${quadrant.id}/new`">add</NavLink>
+      <RouterLink :to="`/quadrants/${quadrant.id}/new`">add</RouterLink>
     </nav>
 
     <RouterView 

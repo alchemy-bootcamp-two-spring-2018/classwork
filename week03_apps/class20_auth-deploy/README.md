@@ -30,3 +30,19 @@ Proxy, APIs, Environments, User
 1. Protecting Routes
     1. For simplicity, use `v-if` to control based on `user` data
 1. Provide logout
+
+## Deployment
+
+1. Two-repo solution
+1. Create heroku account
+1. Download nodejs tools
+1. In `server`:
+    1. Create heroku project
+    1. Add postgres db
+    1. Run `db` scripts against prod db
+    1. Add `engine` to `package.json`
+1. Deploy:
+    1. commit!
+    1. `git push heroku master`
+    1. `heroku open`
+    1. Profit!
