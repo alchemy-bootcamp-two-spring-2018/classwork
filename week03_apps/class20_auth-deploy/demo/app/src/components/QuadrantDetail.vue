@@ -20,12 +20,8 @@
 
 <script>
 import { getQuadrant, addNeighborhood } from '../services/api';
-import NavLink from './NavLink';
 
 export default {
-  components: {
-    NavLink
-  },
   data() {
     return {
       quadrant: null
