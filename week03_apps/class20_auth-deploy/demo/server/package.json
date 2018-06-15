@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "http-server.js",
+  "scripts": {
+    "create-tables": "node scripts/create-tables.js",
+    "drop-tables": "node scripts/drop-tables.js",
+    "recreate-tables": "npm run drop-tables && npm run create-tables",
+    "seed-data": "node scripts/seed-data.js",
+    "db-load-all": "npm run recreate-tables && npm run seed-data",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:watch": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Marty Nelson <marty@martypdx.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cool-ascii-faces": "^1.3.4",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "superagent": "^3.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.5"
+  }
+}

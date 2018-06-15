@@ -5,6 +5,7 @@ client.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       email VARCHAR(256) NOT NULL,
+      name VARCHAR(256),
       password VARCHAR(256) NOT NULL
     );
 

@@ -181,14 +181,19 @@ app.post('/api/auth/signup', (req, res, next) => {
       }
 
       return client.query(`
-        insert into users (email, password)
-        values ($1, $2)
-        returning id
+        insert into users (email, name, password)
+        values ($1, $2, $3)
+        returning id, email, name
       `,
-      [email, password]);
+      [email, body.name, password]);
     })
     .then(results => {
-      res.send({ userId: results.rows[0].id });
+      const row = results.rows[0];
+      res.send({ 
+        id: row.id,
+        email: row.email,
+        name: row.name
+      });
     })
     .catch(next);
 
@@ -215,7 +220,11 @@ app.post('/api/auth/signin', (req, res, next) => {
       if(!row || row.password !== password) {
         throw new Error('Invalid email or password');
       }
-      res.send({ userId: row.id });
+      res.send({ 
+        id: row.id,
+        email: row.email,
+        name: row.name
+      });
     })
     .catch(next);
 

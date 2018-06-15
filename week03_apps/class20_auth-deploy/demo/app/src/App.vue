@@ -2,11 +2,11 @@
   <div id="app">
     <h1>Router Demo</h1>
     <nav>
-      <RouterLink to="/">Go to <strong>Home</strong></RouterLink>
+      <RouterLink exact to="/">Home</RouterLink>
       &nbsp;
-      <RouterLink to="/about">Go to About</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
       &nbsp;
-      <RouterLink to="/quadrants">Go to Quadrants</RouterLink>
+      <RouterLink to="/quadrants">Quadrants</RouterLink>
       &nbsp;
       <RouterLink to="/auth">Sign In</RouterLink>
     </nav>
@@ -33,6 +33,21 @@ export default {
 }
 
 h1, nav {
-    text-align: center;
+  text-align: center;
+}
+
+nav a {
+  padding: 5px 10px;
+  color: steelblue;
+}
+
+nav a:hover {
+  color: white;
+  background: lightsteelblue;
+}
+
+.router-link-active, .router-link-active:hover {
+  background: steelblue;
+  color: white;
 }
 </style>
