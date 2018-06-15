@@ -1,4 +1,4 @@
-Proxy, APIs, Environments, User
+Auth and Deploy
 ===
 
 ## Announcements, Review and Questions
